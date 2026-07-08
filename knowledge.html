@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}Knowledge Base — LEGACY-X{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <div class="d-flex align-items-center gap-3 mb-5">
+    <div class="lx-page-icon"><i class="bi bi-cloud-upload-fill"></i></div>
+    <div>
+      <h1 class="lx-page-title mb-0">Knowledge Management</h1>
+      <p class="lx-page-sub">Upload documents, journals, and memories to build the Wisdom Twin's knowledge base.</p>
+    </div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="row g-3 mb-5">
+    <div class="col-sm-6 col-md-3">
+      <div class="lx-stat-card lx-card text-center p-4">
+        <div class="lx-stat-icon lx-icon-purple"><i class="bi bi-files"></i></div>
+        <div class="lx-big-num" id="statTotalFiles">{{ stats.total_files }}</div>
+        <div class="lx-stat-label">Documents</div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="lx-stat-card lx-card text-center p-4">
+        <div class="lx-stat-icon lx-icon-blue"><i class="bi bi-puzzle"></i></div>
+        <div class="lx-big-num" id="statTotalChunks">{{ stats.total_chunks }}</div>
+        <div class="lx-stat-label">Memory Chunks</div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="lx-stat-card lx-card text-center p-4">
+        <div class="lx-stat-icon lx-icon-teal"><i class="bi bi-tags"></i></div>
+        <div class="lx-big-num" id="statIndexTerms">{{ stats.index_terms }}</div>
+        <div class="lx-stat-label">Index Terms</div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="lx-stat-card lx-card text-center p-4">
+        <div class="lx-stat-icon {% if stats.ibm_ready %}lx-icon-green{% else %}lx-icon-orange{% endif %}">
+          <i class="bi bi-cpu-fill"></i>
+        </div>
+        <div class="lx-big-num">{% if stats.ibm_ready %}ON{% else %}OFF{% endif %}</div>
+        <div class="lx-stat-label">IBM Granite</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Upload Panel -->
+    <div class="col-lg-5">
+      <div class="lx-card p-4 h-100">
+        <h5 class="lx-panel-title mb-4"><i class="bi bi-upload me-2"></i>Upload Documents</h5>
+
+        <!-- Drop Zone -->
+        <div class="lx-drop-zone" id="dropZone">
+          <div class="lx-drop-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+          <h6 class="mt-3 mb-1">Drag &amp; Drop Files Here</h6>
+          <p class="lx-tiny-text mb-3">or click to browse</p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap mb-3">
+            <span class="lx-tag lx-tag-blue">PDF</span>
+            <span class="lx-tag lx-tag-purple">TXT</span>
+            <span class="lx-tag lx-tag-teal">DOCX</span>
+          </div>
+          <input type="file" id="fileInput" accept=".pdf,.txt,.docx" class="d-none" multiple/>
+          <button class="btn lx-btn-primary" onclick="document.getElementById('fileInput').click()">
+            <i class="bi bi-folder2-open me-2"></i>Browse Files
+          </button>
+        </div>
+
+        <!-- Upload Progress -->
+        <div id="uploadProgress" class="mt-3 d-none">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="lx-tiny-text" id="uploadFileName">Uploading…</span>
+            <span class="lx-tiny-text" id="uploadPct">0%</span>
+          </div>
+          <div class="progress lx-progress">
+            <div class="progress-bar lx-progress-bar" id="progressBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Upload Status -->
+        <div id="uploadStatus" class="mt-2"></div>
+
+        <!-- Document Types -->
+        <div class="mt-4">
+          <h6 class="lx-label mb-2">Supported Memory Types</h6>
+          <div class="row g-2">
+            {% for t in [("bi-journal-text","Personal Journals"),("bi-envelope","Letters"),("bi-book","Biographies"),("bi-chat-quote","Stories"),("bi-file-text","Notes"),("bi-camera","Life Events")] %}
+            <div class="col-6">
+              <div class="lx-doc-type-item">
+                <i class="bi {{ t[0] }} me-2"></i>{{ t[1] }}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- File List -->
+    <div class="col-lg-7">
+      <div class="lx-card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h5 class="lx-panel-title mb-0"><i class="bi bi-folder2 me-2"></i>Uploaded Memories</h5>
+          <button class="btn lx-btn-ghost btn-sm" onclick="refreshFiles()">
+            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+          </button>
+        </div>
+
+        <div id="fileList">
+          {% if files %}
+          {% for f in files %}
+          <div class="lx-file-item" id="file-{{ loop.index }}" data-filename="{{ f.name }}">
+            <div class="lx-file-icon lx-file-{{ f.type.lower() }}">
+              <i class="bi {% if f.type == 'PDF' %}bi-file-earmark-pdf{% elif f.type == 'DOCX' %}bi-file-earmark-word{% else %}bi-file-earmark-text{% endif %}"></i>
+            </div>
+            <div class="lx-file-info flex-grow-1">
+              <div class="lx-file-name">{{ f.name }}</div>
+              <div class="lx-file-meta">{{ f.type }} · {{ f.size }} KB · {{ f.uploaded }}</div>
+            </div>
+            <button class="btn lx-btn-danger-ghost btn-sm" onclick="deleteFile('{{ f.name }}', this)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          {% endfor %}
+          {% else %}
+          <div class="lx-empty-state text-center py-5" id="emptyState">
+            <i class="bi bi-inbox lx-empty-icon"></i>
+            <p class="mt-3 mb-0">No documents uploaded yet.</p>
+            <p class="lx-tiny-text">Upload PDF, TXT, or DOCX files to build the knowledge base.</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/knowledge.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}Settings — LEGACY-X{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <div class="d-flex align-items-center gap-3 mb-5">
+    <div class="lx-page-icon lx-icon-teal"><i class="bi bi-gear-fill"></i></div>
+    <div>
+      <h1 class="lx-page-title mb-0">Configuration &amp; Settings</h1>
+      <p class="lx-page-sub">Customize agent behaviour through AGENT_INSTRUCTIONS in <code>agents/config.py</code>.</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Profile Settings -->
+    <div class="col-lg-6">
+      <div class="lx-card p-4">
+        <h5 class="lx-panel-title mb-4"><i class="bi bi-person-badge me-2"></i>Wisdom Twin Profile</h5>
+        <div class="lx-settings-row"><span class="lx-label">Name</span><span class="lx-setting-val">{{ config.profile.name }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Profession</span><span class="lx-setting-val">{{ config.profile.profession }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Age</span><span class="lx-setting-val">{{ config.profile.age }}</span></div>
+        <div class="lx-settings-row">
+          <span class="lx-label">Core Values</span>
+          <div class="d-flex flex-wrap gap-1">{% for v in config.profile.core_values %}<span class="lx-tag lx-tag-purple">{{ v }}</span>{% endfor %}</div>
+        </div>
+        <div class="lx-settings-row">
+          <span class="lx-label">Personality</span>
+          <div class="d-flex flex-wrap gap-1">{% for p in config.profile.personality %}<span class="lx-tag lx-tag-blue">{{ p }}</span>{% endfor %}</div>
+        </div>
+        <div class="lx-info-box mt-3">
+          <i class="bi bi-info-circle me-2"></i>
+          Edit <code>AGENT_INSTRUCTIONS["profile"]</code> in <code>agents/config.py</code> to change profile.
+        </div>
+      </div>
+    </div>
+
+    <!-- Model Settings -->
+    <div class="col-lg-6">
+      <div class="lx-card p-4">
+        <h5 class="lx-panel-title mb-4"><i class="bi bi-cpu me-2"></i>IBM Granite Model</h5>
+        <div class="lx-settings-row"><span class="lx-label">Model ID</span><span class="lx-setting-val lx-mono">{{ config.model.model_id }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Max Tokens</span><span class="lx-setting-val">{{ config.model.max_tokens }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Temperature</span>
+          <div class="lx-slider-display"><div class="lx-slider-fill" style="width:{{ (config.model.temperature * 100)|int }}%"></div></div>
+          <span class="lx-setting-val">{{ config.model.temperature }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Top-P</span>
+          <div class="lx-slider-display"><div class="lx-slider-fill" style="width:{{ (config.model.top_p * 100)|int }}%"></div></div>
+          <span class="lx-setting-val">{{ config.model.top_p }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Top-K</span><span class="lx-setting-val">{{ config.model.top_k }}</span></div>
+        <div class="lx-info-box mt-3">
+          <i class="bi bi-info-circle me-2"></i>
+          Edit <code>AGENT_INSTRUCTIONS["model"]</code> in <code>agents/config.py</code>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Legacy Agent Settings -->
+    <div class="col-lg-4">
+      <div class="lx-card p-4 lx-agent-settings-card lx-settings-legacy">
+        <h5 class="lx-panel-title mb-4">
+          <i class="bi bi-person-badge-fill me-2 text-purple"></i>Legacy Agent
+        </h5>
+        <div class="lx-settings-row"><span class="lx-label">Tone</span><span class="lx-setting-val">{{ config.legacy.tone }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Language</span><span class="lx-setting-val">{{ config.legacy.language }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Response Length</span>
+          <span class="lx-badge-sm lx-badge-purple">{{ config.legacy.response_length }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Wisdom Style</span><span class="lx-setting-val">{{ config.legacy.wisdom_style }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Creativity</span>
+          <div class="lx-slider-display"><div class="lx-slider-fill lx-fill-purple" style="width:{{ (config.legacy.creativity * 100)|int }}%"></div></div>
+          <span class="lx-setting-val">{{ config.legacy.creativity }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Strictness</span>
+          <span class="lx-badge-sm lx-badge-purple">{{ config.legacy.strictness }}</span>
+        </div>
+        <div class="mt-3">
+          <div class="lx-label mb-2">Safety Rules</div>
+          {% for rule in config.legacy.safety_rules %}
+          <div class="lx-rule-item"><i class="bi bi-shield-check me-2"></i>{{ rule }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Analyst Agent Settings -->
+    <div class="col-lg-4">
+      <div class="lx-card p-4 lx-agent-settings-card lx-settings-analyst">
+        <h5 class="lx-panel-title mb-4">
+          <i class="bi bi-bar-chart-line-fill me-2 text-blue"></i>Analyst Agent
+        </h5>
+        <div class="lx-settings-row"><span class="lx-label">Tone</span><span class="lx-setting-val">{{ config.analyst.tone }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Language</span><span class="lx-setting-val">{{ config.analyst.language }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Response Length</span>
+          <span class="lx-badge-sm lx-badge-blue">{{ config.analyst.response_length }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Creativity</span>
+          <div class="lx-slider-display"><div class="lx-slider-fill lx-fill-blue" style="width:{{ (config.analyst.creativity * 100)|int }}%"></div></div>
+          <span class="lx-setting-val">{{ config.analyst.creativity }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Strictness</span>
+          <span class="lx-badge-sm lx-badge-blue">{{ config.analyst.strictness }}</span>
+        </div>
+        <div class="mt-3">
+          <div class="lx-label mb-2">Safety Rules</div>
+          {% for rule in config.analyst.safety_rules %}
+          <div class="lx-rule-item"><i class="bi bi-shield-check me-2"></i>{{ rule }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Consensus Agent Settings -->
+    <div class="col-lg-4">
+      <div class="lx-card p-4 lx-agent-settings-card lx-settings-consensus">
+        <h5 class="lx-panel-title mb-4">
+          <i class="bi bi-stars me-2 text-teal"></i>Consensus Agent
+        </h5>
+        <div class="lx-settings-row"><span class="lx-label">Tone</span><span class="lx-setting-val">{{ config.consensus.tone }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Language</span><span class="lx-setting-val">{{ config.consensus.language }}</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Response Length</span>
+          <span class="lx-badge-sm lx-badge-teal">{{ config.consensus.response_length }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Creativity</span>
+          <div class="lx-slider-display"><div class="lx-slider-fill lx-fill-teal" style="width:{{ (config.consensus.creativity * 100)|int }}%"></div></div>
+          <span class="lx-setting-val">{{ config.consensus.creativity }}</span>
+        </div>
+        <div class="lx-settings-row"><span class="lx-label">Strictness</span>
+          <span class="lx-badge-sm lx-badge-teal">{{ config.consensus.strictness }}</span>
+        </div>
+        <div class="mt-3">
+          <div class="lx-label mb-2">Safety Rules</div>
+          {% for rule in config.consensus.safety_rules %}
+          <div class="lx-rule-item"><i class="bi bi-shield-check me-2"></i>{{ rule }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- RAG Settings -->
+    <div class="col-lg-6">
+      <div class="lx-card p-4">
+        <h5 class="lx-panel-title mb-4"><i class="bi bi-search me-2"></i>RAG Configuration</h5>
+        <div class="lx-settings-row"><span class="lx-label">Chunk Size</span><span class="lx-setting-val">{{ config.rag.chunk_size }} chars</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Chunk Overlap</span><span class="lx-setting-val">{{ config.rag.chunk_overlap }} chars</span></div>
+        <div class="lx-settings-row"><span class="lx-label">Top-K Retrieval</span><span class="lx-setting-val">{{ config.rag.top_k }} chunks</span></div>
+        <div class="lx-info-box mt-3">
+          <i class="bi bi-info-circle me-2"></i>
+          RAG settings are in <code>AGENT_INSTRUCTIONS["rag"]</code>. Changing <em>chunk_size</em> requires re-uploading documents.
+        </div>
+      </div>
+    </div>
+
+    <!-- Environment Info -->
+    <div class="col-lg-6">
+      <div class="lx-card p-4">
+        <h5 class="lx-panel-title mb-4"><i class="bi bi-key me-2"></i>Environment Variables</h5>
+        <div class="lx-settings-row"><span class="lx-label">IBM_API_KEY</span><span class="lx-tag lx-tag-orange">Set in .env</span></div>
+        <div class="lx-settings-row"><span class="lx-label">IBM_PROJECT_ID</span><span class="lx-tag lx-tag-orange">Set in .env</span></div>
+        <div class="lx-settings-row"><span class="lx-label">IBM_URL</span><span class="lx-tag lx-tag-orange">Set in .env</span></div>
+        <div class="lx-settings-row"><span class="lx-label">FLASK_SECRET_KEY</span><span class="lx-tag lx-tag-orange">Set in .env</span></div>
+        <div class="lx-info-box mt-3">
+          <i class="bi bi-shield-lock me-2"></i>
+          Copy <code>.env.example</code> to <code>.env</code> and fill in your IBM credentials. Never commit <code>.env</code>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

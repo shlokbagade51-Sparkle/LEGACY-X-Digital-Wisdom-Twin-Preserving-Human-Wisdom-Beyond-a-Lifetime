@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — LEGACY-X{% endblock %}
+
+{% block extra_css %}
+<style>
+.lx-dash-grid { display:grid; grid-template-columns:300px 1fr 320px; gap:1.25rem; height:calc(100vh - 72px); padding:1.25rem; overflow:hidden; }
+@media(max-width:1200px){ .lx-dash-grid{ grid-template-columns:260px 1fr; } .lx-right-panel{ display:none; } }
+@media(max-width:768px){ .lx-dash-grid{ grid-template-columns:1fr; height:auto; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lx-dash-grid">
+
+  <!-- ── LEFT PANEL: Profile ──────────────────────────────────────────── -->
+  <aside class="lx-panel lx-panel-left d-flex flex-column gap-3 overflow-y-auto">
+
+    <!-- Profile Card -->
+    <div class="lx-card p-3">
+      <div class="text-center mb-3">
+        <div class="lx-avatar-ring mx-auto mb-2">
+          <div class="lx-avatar-inner">
+            <svg width="56" height="56" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <defs><radialGradient id="avGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#3b82f6"/>
+              </radialGradient></defs>
+              <ellipse cx="40" cy="32" rx="18" ry="20" fill="url(#avGrad)" opacity="0.85"/>
+              <rect x="36" y="50" width="8" height="14" rx="3" fill="#6366f1"/>
+              <path d="M30 28 Q34 22 38 27 Q40 18 43 25 Q46 20 50 26" stroke="white" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <path d="M30 35 Q36 40 40 35 Q44 40 50 35" stroke="white" stroke-width="1.5" fill="none" opacity="0.6"/>
+            </svg>
+          </div>
+        </div>
+        <h6 class="lx-profile-name mb-0">{{ profile.name }}</h6>
+        <p class="lx-profile-role">{{ profile.profession }}</p>
+        <div class="lx-status-badge"><span class="lx-pulse"></span>Wisdom Twin Active</div>
+      </div>
+
+      <div class="lx-profile-row"><span class="lx-label">Age</span><span>{{ profile.age }}</span></div>
+
+      <div class="mt-2">
+        <div class="lx-label mb-1">Core Values</div>
+        <div class="d-flex flex-wrap gap-1">
+          {% for v in profile.core_values %}<span class="lx-tag lx-tag-purple">{{ v }}</span>{% endfor %}
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <div class="lx-label mb-1">Personality</div>
+        <div class="d-flex flex-wrap gap-1">
+          {% for t in profile.personality %}<span class="lx-tag lx-tag-blue">{{ t }}</span>{% endfor %}
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <div class="lx-label mb-1">Biography</div>
+        <p class="lx-bio-text">{{ profile.biography }}</p>
+      </div>
+    </div>
+
+    <!-- Knowledge Stats -->
+    <div class="lx-card p-3">
+      <h6 class="lx-panel-title"><i class="bi bi-database me-2"></i>Knowledge Base</h6>
+      <div class="lx-stat-row"><span>Documents</span><span class="lx-stat-val" id="statFiles">{{ stats.total_files }}</span></div>
+      <div class="lx-stat-row"><span>Memory Chunks</span><span class="lx-stat-val" id="statChunks">{{ stats.total_chunks }}</span></div>
+      <div class="lx-stat-row"><span>Index Terms</span><span class="lx-stat-val" id="statTerms">{{ stats.index_terms }}</span></div>
+      <div class="lx-stat-row">
+        <span>IBM Granite</span>
+        <span class="lx-badge-sm {% if stats.ibm_ready %}lx-badge-green{% else %}lx-badge-yellow{% endif %}">
+          {% if stats.ibm_ready %}Ready{% else %}Configure .env{% endif %}
+        </span>
+      </div>
+      <a href="/knowledge" class="btn lx-btn-outline btn-sm w-100 mt-2">
+        <i class="bi bi-upload me-1"></i>Upload Memories
+      </a>
+    </div>
+
+    <!-- Memory Timeline -->
+    <div class="lx-card p-3">
+      <h6 class="lx-panel-title"><i class="bi bi-clock-history me-2"></i>Memory Timeline</h6>
+      <div class="lx-timeline">
+        {% for ev in [("Birth & Early Life","bi-heart","1947"),("Education","bi-mortarboard","1965"),("Career Begins","bi-briefcase","1970"),("Entrepreneur","bi-lightbulb","1982"),("Achievements","bi-trophy","1995"),("Life Lessons","bi-journal","2010"),("Legacy","bi-stars","Present")] %}
+        <div class="lx-tl-item">
+          <div class="lx-tl-dot"><i class="bi {{ ev[1] }}"></i></div>
+          <div class="lx-tl-body">
+            <span class="lx-tl-label">{{ ev[0] }}</span>
+            <span class="lx-tl-year">{{ ev[2] }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── CENTER PANEL: Chat ──────────────────────────────────────────── -->
+  <section class="lx-panel lx-panel-center d-flex flex-column">
+
+    <!-- Chat header -->
+    <div class="lx-chat-header">
+      <div class="d-flex align-items-center gap-2">
+        <div class="lx-pulse-ring"></div>
+        <span class="lx-chat-title">Conversation with {{ profile.name }}</span>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn lx-btn-ghost btn-sm" id="exportChat" title="Export conversation">
+          <i class="bi bi-download"></i>
+        </button>
+        <button class="btn lx-btn-ghost btn-sm" id="clearChat" title="Clear chat">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages area -->
+    <div class="lx-chat-messages flex-grow-1" id="chatMessages">
+      <!-- Welcome message -->
+      <div class="lx-msg lx-msg-ai">
+        <div class="lx-msg-avatar"><i class="bi bi-person-badge-fill"></i></div>
+        <div class="lx-msg-bubble">
+          <p>Hello. I am the Digital Wisdom Twin of <strong>{{ profile.name }}</strong>.</p>
+          <p>I carry memories, values, and life experiences from a lifetime of learning. Ask me anything — I will share what I know from my uploaded memories.</p>
+          <p class="lx-msg-meta">{{ profile.name }} • Digital Wisdom Twin</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggested prompts -->
+    <div class="lx-suggestions" id="suggestions">
+      <button class="lx-suggestion-btn" onclick="useSuggestion(this)">What would you advise about starting a business?</button>
+      <button class="lx-suggestion-btn" onclick="useSuggestion(this)">How should I prepare for major life decisions?</button>
+      <button class="lx-suggestion-btn" onclick="useSuggestion(this)">What is the most important life lesson you learned?</button>
+      <button class="lx-suggestion-btn" onclick="useSuggestion(this)">How did you overcome failure and adversity?</button>
+    </div>
+
+    <!-- Input area -->
+    <div class="lx-chat-input-area">
+      <div class="lx-input-row">
+        <textarea id="chatInput" class="lx-chat-textarea" rows="1"
+          placeholder="Ask for wisdom, guidance, or life advice…" maxlength="1000"></textarea>
+        <button class="btn lx-btn-send" id="sendBtn" onclick="sendMessage()">
+          <i class="bi bi-send-fill"></i>
+        </button>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1 px-1">
+        <span class="lx-tiny-text" id="contextCounter">0 memories retrieved</span>
+        <span class="lx-tiny-text" id="charCounter">0/1000</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── RIGHT PANEL: Agent Cards ───────────────────────────────────── -->
+  <aside class="lx-panel lx-right-panel d-flex flex-column gap-3 overflow-y-auto">
+
+    <!-- Workflow Visualization -->
+    <div class="lx-card p-3">
+      <h6 class="lx-panel-title"><i class="bi bi-diagram-3 me-2"></i>AI Workflow</h6>
+      <div id="workflowSteps">
+        {% for step in ["Question Received","Retrieve Memories","Legacy Agent Thinking","Analyst Agent Thinking","Consensus Agent","Final Response"] %}
+        <div class="lx-wf-step-item lx-wf-idle" id="wfStep{{ loop.index0 }}">
+          <div class="lx-wf-dot"></div>
+          <span>{{ step }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Legacy Agent Response -->
+    <div class="lx-card lx-agent-card lx-agent-legacy p-3" id="legacyCard">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <div class="d-flex align-items-center gap-2">
+          <div class="lx-agent-icon lx-icon-purple"><i class="bi bi-person-badge-fill"></i></div>
+          <span class="lx-agent-name">Legacy Agent</span>
+        </div>
+        <div class="d-flex gap-1 align-items-center">
+          <span class="lx-tiny-text" id="legacyTime"></span>
+          <button class="btn lx-btn-ghost btn-sm" onclick="toggleCard('legacyBody')"><i class="bi bi-chevron-down" id="legacyChevron"></i></button>
+        </div>
+      </div>
+      <div id="legacyBody">
+        <p class="lx-agent-placeholder">Wisdom response will appear here…</p>
+      </div>
+    </div>
+
+    <!-- Analyst Agent Response -->
+    <div class="lx-card lx-agent-card lx-agent-analyst p-3" id="analystCard">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <div class="d-flex align-items-center gap-2">
+          <div class="lx-agent-icon lx-icon-blue"><i class="bi bi-bar-chart-line-fill"></i></div>
+          <span class="lx-agent-name">Analyst Agent</span>
+        </div>
+        <div class="d-flex gap-1 align-items-center">
+          <span class="lx-tiny-text" id="analystTime"></span>
+          <button class="btn lx-btn-ghost btn-sm" onclick="toggleCard('analystBody')"><i class="bi bi-chevron-down" id="analystChevron"></i></button>
+        </div>
+      </div>
+      <div id="analystBody">
+        <p class="lx-agent-placeholder">Analytical response will appear here…</p>
+      </div>
+    </div>
+
+    <!-- Consensus Agent Response -->
+    <div class="lx-card lx-agent-card lx-agent-consensus p-3" id="consensusCard">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <div class="d-flex align-items-center gap-2">
+          <div class="lx-agent-icon lx-icon-teal"><i class="bi bi-stars"></i></div>
+          <span class="lx-agent-name">Consensus Agent</span>
+        </div>
+        <div class="d-flex gap-1 align-items-center">
+          <span class="lx-tiny-text" id="consensusTime"></span>
+          <button class="btn lx-btn-ghost btn-sm" onclick="toggleCard('consensusBody')"><i class="bi bi-chevron-down" id="consensusChevron"></i></button>
+        </div>
+      </div>
+      <div id="consensusBody">
+        <p class="lx-agent-placeholder">Consensus recommendation will appear here…</p>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

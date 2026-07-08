@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% block title %}LEGACY-X — Preserve Wisdom Beyond a Lifetime{% endblock %}
+
+{% block content %}
+<!-- Particle Canvas -->
+<canvas id="particleCanvas" class="lx-particles"></canvas>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+<section class="lx-hero d-flex align-items-center justify-content-center text-center">
+  <div class="container lx-hero-inner">
+    <!-- Logo -->
+    <div class="lx-hero-logo mx-auto mb-4" data-aos="fade-down">
+      <svg width="110" height="110" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="hGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a78bfa"/>
+            <stop offset="100%" stop-color="#3b82f6"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Tree trunk -->
+        <rect x="36" y="52" width="8" height="20" rx="3" fill="#818cf8" filter="url(#glow)"/>
+        <!-- Roots -->
+        <path d="M40 72 Q32 76 26 74" stroke="#818cf8" stroke-width="2" fill="none" opacity="0.6"/>
+        <path d="M40 72 Q48 76 54 74" stroke="#818cf8" stroke-width="2" fill="none" opacity="0.6"/>
+        <!-- Tree canopy -->
+        <ellipse cx="40" cy="34" rx="22" ry="24" fill="url(#hGrad)" filter="url(#glow)" opacity="0.9"/>
+        <!-- Brain folds -->
+        <path d="M26 30 Q30 22 35 28 Q40 18 45 26 Q50 20 54 28" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+        <path d="M25 38 Q33 44 40 38 Q47 44 55 38" stroke="white" stroke-width="2" fill="none" opacity="0.7"/>
+        <path d="M28 44 Q34 48 40 44 Q46 48 52 44" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <!-- Sparks -->
+        <circle cx="40" cy="10" r="3.5" fill="#c4b5fd" filter="url(#glow)"/>
+        <circle cx="28" cy="16" r="2" fill="#818cf8" opacity="0.7"/>
+        <circle cx="52" cy="16" r="2" fill="#818cf8" opacity="0.7"/>
+      </svg>
+    </div>
+
+    <div class="lx-hero-eyebrow mb-2">Next-Generation Agentic AI Platform</div>
+
+    <h1 class="lx-hero-title">
+      <span class="lx-gradient-text">LEGACY</span><span class="lx-hero-x">-X</span>
+    </h1>
+    <p class="lx-hero-subtitle">Preserve Wisdom Beyond a Lifetime</p>
+
+    <blockquote class="lx-hero-quote">
+      <p>"People may leave the world.<br>Their wisdom shouldn't."</p>
+    </blockquote>
+
+    <div class="d-flex gap-3 justify-content-center flex-wrap mt-4">
+      <a href="/dashboard" class="btn lx-btn-primary lx-btn-lg">
+        <i class="bi bi-chat-dots-fill me-2"></i>Start Conversation
+      </a>
+      <a href="/knowledge" class="btn lx-btn-outline lx-btn-lg">
+        <i class="bi bi-cloud-upload me-2"></i>Upload Memories
+      </a>
+    </div>
+
+    <!-- Stats row -->
+    <div class="row justify-content-center mt-5 g-3 lx-hero-stats">
+      <div class="col-auto"><div class="lx-stat-pill"><span class="lx-stat-num">3</span> AI Agents</div></div>
+      <div class="col-auto"><div class="lx-stat-pill"><span class="lx-stat-num">RAG</span> Powered</div></div>
+      <div class="col-auto"><div class="lx-stat-pill"><span class="lx-stat-num">IBM</span> Granite</div></div>
+      <div class="col-auto"><div class="lx-stat-pill"><span class="lx-stat-num">0</span> Hallucinations</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ───────────────────────────────────────────────────────────── -->
+<section class="lx-section py-6" id="features">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="lx-section-label">Platform Capabilities</div>
+      <h2 class="lx-section-title">What Makes LEGACY-X Unique</h2>
+      <p class="lx-section-sub">A Multi-Agent AI system that preserves the wisdom of people who matter most.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Feature 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="lx-feature-card lx-card h-100">
+          <div class="lx-feature-icon lx-icon-purple"><i class="bi bi-brain"></i></div>
+          <h5 class="lx-card-title">Digital Wisdom Twin</h5>
+          <p class="lx-card-text">Preserve the personality, values, and lived experiences of any individual as a queryable AI entity.</p>
+        </div>
+      </div>
+      <!-- Feature 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="lx-feature-card lx-card h-100">
+          <div class="lx-feature-icon lx-icon-blue"><i class="bi bi-diagram-3-fill"></i></div>
+          <h5 class="lx-card-title">Multi-Agent Architecture</h5>
+          <p class="lx-card-text">Legacy Agent, Analyst Agent, and Consensus Agent work together to produce balanced, grounded answers.</p>
+        </div>
+      </div>
+      <!-- Feature 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="lx-feature-card lx-card h-100">
+          <div class="lx-feature-icon lx-icon-teal"><i class="bi bi-search"></i></div>
+          <h5 class="lx-card-title">RAG — No Hallucinations</h5>
+          <p class="lx-card-text">Every answer is grounded in uploaded documents. The AI never invents memories or facts.</p>
+        </div>
+      </div>
+      <!-- Feature 4 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="lx-feature-card lx-card h-100">
+          <div class="lx-feature-icon lx-icon-orange"><i class="bi bi-cloud-upload-fill"></i></div>
+          <h5 class="lx-card-title">Rich Document Ingestion</h5>
+          <p class="lx-card-text">Upload PDF, TXT, and DOCX — journals, letters, biographies, personal stories, and life notes.</p>
+        </div>
+      </div>
+      <!-- Feature 5 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="lx-feature-card lx-card h-100">
+          <div class="lx-feature-icon lx-icon-pink"><i class="bi bi-cpu-fill"></i></div>
+          <h5 class="lx-card-title">IBM Granite &amp; watsonx.ai</h5>
+          <p class="lx-card-text">Powered by IBM's enterprise-grade Granite foundation models through IBM watsonx.ai APIs.</p>
+        </div>
+      </div>
+      <!-- Feature 6 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="lx-feature-card lx-card h-100">
+          <div class="lx-feature-icon lx-icon-green"><i class="bi bi-people-fill"></i></div>
+          <h5 class="lx-card-title">For Every Generation</h5>
+          <p class="lx-card-text">Preserve the wisdom of parents, grandparents, teachers, mentors, scientists, and entrepreneurs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ────────────────────────────────────────────────────────── -->
+<section class="lx-section lx-section-alt py-6" id="how">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="lx-section-label">Workflow</div>
+      <h2 class="lx-section-title">How LEGACY-X Works</h2>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="lx-workflow-row">
+          <div class="lx-workflow-step">
+            <div class="lx-wf-num">1</div>
+            <div class="lx-wf-icon"><i class="bi bi-upload"></i></div>
+            <h6>Upload Documents</h6>
+            <p>PDF, TXT, DOCX memories</p>
+          </div>
+          <div class="lx-wf-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="lx-workflow-step">
+            <div class="lx-wf-num">2</div>
+            <div class="lx-wf-icon"><i class="bi bi-search"></i></div>
+            <h6>RAG Retrieval</h6>
+            <p>Semantic memory search</p>
+          </div>
+          <div class="lx-wf-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="lx-workflow-step">
+            <div class="lx-wf-num">3</div>
+            <div class="lx-wf-icon"><i class="bi bi-person-badge"></i></div>
+            <h6>Legacy Agent</h6>
+            <p>Wisdom response</p>
+          </div>
+          <div class="lx-wf-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="lx-workflow-step">
+            <div class="lx-wf-num">4</div>
+            <div class="lx-wf-icon"><i class="bi bi-bar-chart-line"></i></div>
+            <h6>Analyst Agent</h6>
+            <p>Logical analysis</p>
+          </div>
+          <div class="lx-wf-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="lx-workflow-step lx-wf-final">
+            <div class="lx-wf-num">5</div>
+            <div class="lx-wf-icon"><i class="bi bi-stars"></i></div>
+            <h6>Consensus</h6>
+            <p>Final recommendation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── USE CASES ──────────────────────────────────────────────────────────── -->
+<section class="lx-section py-6" id="use-cases">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="lx-section-label">Applications</div>
+      <h2 class="lx-section-title">Who Can Be Preserved</h2>
+    </div>
+
+    <div class="row g-3 justify-content-center">
+      {% for item in [
+        ("bi-house-heart", "Grandparents", "Preserve family wisdom and stories for future generations"),
+        ("bi-mortarboard", "Teachers & Mentors", "Keep educational philosophies and guidance alive"),
+        ("bi-lightbulb", "Entrepreneurs", "Capture business decisions and life lessons"),
+        ("bi-flask", "Scientists", "Archive research insights and methodologies"),
+        ("bi-book", "Authors", "Preserve creative philosophy and narrative voice"),
+        ("bi-heart-pulse", "Healthcare Pioneers", "Document medical wisdom and patient care insights")
+      ] %}
+      <div class="col-sm-6 col-md-4 col-lg-2">
+        <div class="lx-usecase-card lx-card text-center h-100">
+          <i class="bi {{ item[0] }} lx-usecase-icon"></i>
+          <h6 class="mt-2 mb-1">{{ item[1] }}</h6>
+          <p class="lx-tiny-text">{{ item[2] }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────────────────── -->
+<section class="lx-cta-section py-6 text-center">
+  <div class="container">
+    <h2 class="lx-section-title mb-3">Begin Preserving Wisdom Today</h2>
+    <p class="lx-section-sub mb-4">Upload your first document and create your Digital Wisdom Twin in minutes.</p>
+    <a href="/dashboard" class="btn lx-btn-primary lx-btn-lg me-3">
+      <i class="bi bi-chat-dots-fill me-2"></i>Open Dashboard
+    </a>
+    <a href="/knowledge" class="btn lx-btn-outline lx-btn-lg">
+      <i class="bi bi-upload me-2"></i>Upload Knowledge
+    </a>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+{% endblock %}

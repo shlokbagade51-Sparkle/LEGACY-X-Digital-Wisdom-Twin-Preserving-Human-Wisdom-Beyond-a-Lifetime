@@ -1,0 +1,196 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LEGACY-X Project Overview</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;background:#060918;color:#e8eaf6;font-size:14px;line-height:1.6}
+  .wrap{max-width:760px;margin:0 auto;padding:2rem 1.25rem}
+  h1{font-size:2.2rem;font-weight:900;letter-spacing:-1.5px;background:linear-gradient(135deg,#a78bfa,#60a5fa,#2dd4bf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  h2{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#a78bfa;margin:2rem 0 .75rem;padding-bottom:.4rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  h3{font-size:.9rem;font-weight:700;color:#e8eaf6;margin:.75rem 0 .3rem}
+  p,li{color:#9ca3af;font-size:.875rem}
+  .hero{text-align:center;padding:2.5rem 0 1.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .hero .sub{color:#9ca3af;font-size:1rem;margin:.5rem 0}
+  .hero .quote{font-style:italic;color:#6b7280;font-size:.85rem;margin-top:.75rem}
+  .badge-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:1rem}
+  .badge{display:inline-block;padding:3px 10px;border-radius:50px;font-size:.72rem;font-weight:600;border:1px solid}
+  .bp{background:rgba(167,139,250,.1);color:#a78bfa;border-color:rgba(167,139,250,.25)}
+  .bb{background:rgba(96,165,250,.1);color:#60a5fa;border-color:rgba(96,165,250,.25)}
+  .bt{background:rgba(45,212,191,.1);color:#2dd4bf;border-color:rgba(45,212,191,.25)}
+  .bg{background:rgba(74,222,128,.1);color:#4ade80;border-color:rgba(74,222,128,.25)}
+  .bo{background:rgba(251,146,60,.1);color:#fb923c;border-color:rgba(251,146,60,.25)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem}
+  @media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr}}
+  .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1rem}
+  .card.legacy{border-top:3px solid #a78bfa}
+  .card.analyst{border-top:3px solid #60a5fa}
+  .card.consensus{border-top:3px solid #2dd4bf}
+  .agent-icon{font-size:1.5rem;margin-bottom:.4rem}
+  .file-tree{background:#0c1222;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;font-family:'Consolas','Courier New',monospace;font-size:.78rem;line-height:2;overflow-x:auto}
+  .ft-dir{color:#818cf8;font-weight:600}
+  .ft-py {color:#4ade80}
+  .ft-html{color:#fb923c}
+  .ft-css{color:#60a5fa}
+  .ft-js{color:#fbbf24}
+  .ft-misc{color:#6b7280}
+  .ft-key{color:#a78bfa;font-weight:600}
+  .step{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem}
+  .step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .step p{margin:0;font-size:.84rem}
+  code{background:rgba(255,255,255,.07);color:#a78bfa;padding:2px 5px;border-radius:4px;font-family:'Consolas',monospace;font-size:.82em}
+  .route-table{width:100%;border-collapse:collapse;font-size:.8rem}
+  .route-table th{text-align:left;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.1);color:#6b7280;font-weight:600;text-transform:uppercase;font-size:.7rem;letter-spacing:.07em}
+  .route-table td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.05);color:#9ca3af}
+  .route-table td:first-child{color:#4ade80;font-family:'Consolas',monospace}
+  .route-table td:nth-child(2){color:#818cf8}
+  .env-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .env-key{font-family:'Consolas',monospace;font-size:.8rem;color:#a78bfa}
+  .env-val{font-size:.77rem;color:#6b7280;font-style:italic}
+  .footer{text-align:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);color:#4b5563;font-size:.75rem}
+  .check{color:#4ade80;margin-right:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  
+  <div class="hero">
+    <h1>LEGACY-X</h1>
+    <p class="sub">Digital Wisdom Twin Platform</p>
+    <p class="quote">"People may leave the world. Their wisdom shouldn't."</p>
+    <div class="badge-row">
+      <span class="badge bp">Python Flask</span>
+      <span class="badge bb">IBM Granite</span>
+      <span class="badge bt">IBM watsonx.ai</span>
+      <span class="badge bg">RAG Enabled</span>
+      <span class="badge bo">Bootstrap 5</span>
+      <span class="badge bp">Multi-Agent AI</span>
+    </div>
+  </div>
+
+  
+  <h2>Multi-Agent Architecture</h2>
+  <div class="grid3">
+    <div class="card legacy">
+      <div class="agent-icon">👤</div>
+      <h3>Legacy Agent</h3>
+      <p>Speaks with the voice and wisdom of the preserved individual. Uses only uploaded memories. First-person, emotionally intelligent.</p>
+    </div>
+    <div class="card analyst">
+      <div class="agent-icon">📊</div>
+      <h3>Analyst Agent</h3>
+      <p>Logical evaluation — Benefits, Risks, Alternatives, Reasoning. Evidence-based, structured, objective analysis.</p>
+    </div>
+    <div class="card consensus">
+      <div class="agent-icon">⭐</div>
+      <h3>Consensus Agent</h3>
+      <p>Synthesizes both agents into one balanced, actionable recommendation. Highlights agreements and disagreements.</p>
+    </div>
+  </div>
+
+  
+  <h2>Project Structure</h2>
+  <div class="file-tree">
+<span class="ft-dir">LEGACY-X/</span>
+├── <span class="ft-py ft-key">app.py</span>             <span class="ft-misc"># Flask routes + API (11 routes)</span>
+├── <span class="ft-misc">requirements.txt</span>
+├── <span class="ft-misc">.env.example</span>
+├── <span class="ft-misc">README.md</span>
+│
+├── <span class="ft-dir">agents/</span>
+│   ├── <span class="ft-py ft-key">config.py</span>      <span class="ft-misc"># ⚙️ ALL agent settings live here</span>
+│   ├── <span class="ft-py">rag_engine.py</span>  <span class="ft-misc"># TF-IDF RAG + IBM Granite calls</span>
+│   ├── <span class="ft-py">legacy_agent.py</span>
+│   ├── <span class="ft-py">analyst_agent.py</span>
+│   └── <span class="ft-py">consensus_agent.py</span>
+│
+├── <span class="ft-dir">templates/</span>
+│   ├── <span class="ft-html">base.html</span>       <span class="ft-misc"># Navbar, footer, layout</span>
+│   ├── <span class="ft-html ft-key">index.html</span>     <span class="ft-misc"># Landing page + particles</span>
+│   ├── <span class="ft-html ft-key">dashboard.html</span> <span class="ft-misc"># 3-panel chat dashboard</span>
+│   ├── <span class="ft-html">knowledge.html</span> <span class="ft-misc"># Upload &amp; manage docs</span>
+│   └── <span class="ft-html">settings.html</span>  <span class="ft-misc"># Agent config viewer</span>
+│
+├── <span class="ft-dir">static/</span>
+│   ├── <span class="ft-css">css/style.css</span>  <span class="ft-misc"># 420-line premium dark theme</span>
+│   ├── <span class="ft-js">js/main.js</span>      <span class="ft-misc"># Theme, toast, utilities</span>
+│   ├── <span class="ft-js">js/dashboard.js</span> <span class="ft-misc"># Chat + workflow animation</span>
+│   ├── <span class="ft-js">js/knowledge.js</span> <span class="ft-misc"># Upload, drag-drop, delete</span>
+│   ├── <span class="ft-js">js/particles.js</span> <span class="ft-misc"># Hero particle canvas</span>
+│   └── <span class="ft-misc">images/logo.svg</span> <span class="ft-misc"># Brain + tree SVG logo</span>
+│
+├── <span class="ft-dir">uploads/</span>            <span class="ft-misc"># Uploaded documents (auto-created)</span>
+└── <span class="ft-dir">knowledge/</span>          <span class="ft-misc"># TF-IDF index cache (auto-created)</span>
+  </div>
+
+  
+  <h2>API Routes</h2>
+  <table class="route-table">
+    <tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
+    <tr><td>/</td><td>GET</td><td>Landing page</td></tr>
+    <tr><td>/dashboard</td><td>GET</td><td>3-panel chat dashboard</td></tr>
+    <tr><td>/knowledge</td><td>GET</td><td>Document upload page</td></tr>
+    <tr><td>/settings</td><td>GET</td><td>Agent config viewer</td></tr>
+    <tr><td>/api/chat</td><td>POST</td><td>Send question → Legacy + Analyst + Consensus</td></tr>
+    <tr><td>/api/upload</td><td>POST</td><td>Upload &amp; index a document</td></tr>
+    <tr><td>/api/delete/&lt;filename&gt;</td><td>DELETE</td><td>Remove from knowledge base</td></tr>
+    <tr><td>/api/stats</td><td>GET</td><td>Knowledge base statistics</td></tr>
+    <tr><td>/api/files</td><td>GET</td><td>List uploaded files</td></tr>
+  </table>
+
+  
+  <h2>Quick Start</h2>
+  <div class="step"><div class="step-num">1</div><p>Install dependencies: <code>pip install -r requirements.txt</code></p></div>
+  <div class="step"><div class="step-num">2</div><p>Copy environment file: <code>cp .env.example .env</code> — fill in your IBM credentials</p></div>
+  <div class="step"><div class="step-num">3</div><p>Run the app: <code>python app.py</code> → open <code>http://localhost:5000</code></p></div>
+  <div class="step"><div class="step-num">4</div><p>Go to <strong>Knowledge</strong> page, upload PDF/TXT/DOCX documents</p></div>
+  <div class="step"><div class="step-num">5</div><p>Open <strong>Dashboard</strong>, ask questions — all 3 agents respond with grounded wisdom</p></div>
+
+  
+  <h2>Environment Variables (.env)</h2>
+  <div class="env-row"><span class="env-key">IBM_API_KEY</span><span class="env-val">Your IBM Cloud API key</span></div>
+  <div class="env-row"><span class="env-key">IBM_PROJECT_ID</span><span class="env-val">Your watsonx.ai project ID</span></div>
+  <div class="env-row"><span class="env-key">IBM_URL</span><span class="env-val">https://us-south.ml.cloud.ibm.com</span></div>
+  <div class="env-row"><span class="env-key">FLASK_SECRET_KEY</span><span class="env-val">Random long secret string</span></div>
+  <div class="env-row"><span class="env-key">FLASK_DEBUG</span><span class="env-val">false (true for development)</span></div>
+
+  
+  <h2>Implemented Features</h2>
+  <div class="grid2">
+    <div>
+      <p><span class="check">✓</span>Animated hero + particle system</p>
+      <p><span class="check">✓</span>IBM-dark glassmorphism theme</p>
+      <p><span class="check">✓</span>Dark / light mode toggle</p>
+      <p><span class="check">✓</span>Custom SVG brain + tree logo</p>
+      <p><span class="check">✓</span>3-panel responsive dashboard</p>
+      <p><span class="check">✓</span>ChatGPT-style chat interface</p>
+      <p><span class="check">✓</span>Typing indicator animation</p>
+      <p><span class="check">✓</span>Suggested prompts</p>
+      <p><span class="check">✓</span>Export conversation (.txt)</p>
+      <p><span class="check">✓</span>Clear chat</p>
+    </div>
+    <div>
+      <p><span class="check">✓</span>Legacy / Analyst / Consensus cards</p>
+      <p><span class="check">✓</span>Live workflow step animation</p>
+      <p><span class="check">✓</span>Expand/collapse agent cards</p>
+      <p><span class="check">✓</span>Drag-and-drop file upload</p>
+      <p><span class="check">✓</span>Upload progress bar</p>
+      <p><span class="check">✓</span>Delete with animation</p>
+      <p><span class="check">✓</span>TF-IDF RAG engine</p>
+      <p><span class="check">✓</span>IBM Granite integration</p>
+      <p><span class="check">✓</span>Memory timeline</p>
+      <p><span class="check">✓</span>Settings config viewer</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>LEGACY-X  ·  IBM Granite  ·  IBM watsonx.ai  ·  Flask  ·  RAG</p>
+    <p style="margin-top:4px">Made with IBM Bob</p>
+  </div>
+</div>
+</body>
+</html>
